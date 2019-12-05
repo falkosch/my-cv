@@ -1,0 +1,263 @@
+{
+  "version": 1,
+  "projects": {
+    "my-cv": {
+      "projectType": "application",
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "apps/my-cv",
+      "sourceRoot": "apps/my-cv/src",
+      "prefix": "my-cv",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/apps/my-cv",
+            "index": "apps/my-cv/src/index.html",
+            "main": "apps/my-cv/src/main.ts",
+            "polyfills": "apps/my-cv/src/polyfills.ts",
+            "tsConfig": "apps/my-cv/tsconfig.app.json",
+            "aot": false,
+            "assets": [
+              "apps/my-cv/src/favicon.ico",
+              "apps/my-cv/src/assets",
+              {
+                "glob": "mdi.svg",
+                "input": "./node_modules/@mdi/angular-material",
+                "output": "./assets"
+              }
+            ],
+            "styles": [
+              "apps/my-cv/src/theme.scss",
+              "apps/my-cv/src/styles.scss"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/my-cv/src/environments/environment.ts",
+                  "with": "apps/my-cv/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "my-cv:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "my-cv:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "my-cv:build"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/my-cv/tsconfig.app.json",
+              "apps/my-cv/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!apps/my-cv/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/my-cv/jest.config.js",
+            "tsConfig": "apps/my-cv/tsconfig.spec.json",
+            "setupFile": "apps/my-cv/src/test-setup.ts"
+          }
+        }
+      }
+    },
+    "my-cv-e2e": {
+      "root": "apps/my-cv-e2e",
+      "sourceRoot": "apps/my-cv-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/my-cv-e2e/cypress.json",
+            "tsConfig": "apps/my-cv-e2e/tsconfig.e2e.json",
+            "devServerTarget": "my-cv:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "my-cv:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:lint",
+          "options": {
+            "linter": "tslint",
+            "tsConfig": ["apps/my-cv-e2e/tsconfig.e2e.json"],
+            "exclude": ["**/node_modules/**", "!apps/my-cv-e2e/**"]
+          }
+        }
+      }
+    },
+    "anchor-scroll": {
+      "projectType": "library",
+      "root": "libs/anchor-scroll",
+      "sourceRoot": "libs/anchor-scroll/src",
+      "prefix": "my-cv",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/anchor-scroll/tsconfig.lib.json",
+              "libs/anchor-scroll/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/anchor-scroll/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/anchor-scroll/jest.config.js",
+            "tsConfig": "libs/anchor-scroll/tsconfig.spec.json",
+            "setupFile": "libs/anchor-scroll/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "styleext": "scss"
+        }
+      }
+    },
+    "print-hint": {
+      "root": "libs/print-hint",
+      "sourceRoot": "libs/print-hint/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/print-hint/tsconfig.lib.json",
+              "libs/print-hint/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/print-hint/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/print-hint/jest.config.js",
+            "tsConfig": "libs/print-hint/tsconfig.spec.json"
+          }
+        }
+      }
+    },
+    "cv-model": {
+      "projectType": "library",
+      "root": "libs/cv-model",
+      "sourceRoot": "libs/cv-model/src",
+      "prefix": "my-cv",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/cv-model/tsconfig.lib.json",
+              "libs/cv-model/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/cv-model/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/cv-model/jest.config.js",
+            "tsConfig": "libs/cv-model/tsconfig.spec.json",
+            "setupFile": "libs/cv-model/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "styleext": "scss"
+        }
+      }
+    },
+    "location": {
+      "projectType": "library",
+      "root": "libs/location",
+      "sourceRoot": "libs/location/src",
+      "prefix": "my-cv",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/location/tsconfig.lib.json",
+              "libs/location/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/location/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/location/jest.config.js",
+            "tsConfig": "libs/location/tsconfig.spec.json",
+            "setupFile": "libs/location/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "styleext": "scss"
+        }
+      }
+    }
+  },
+  "cli": {
+    "defaultCollection": "@nrwl/angular"
+  },
+  "schematics": {
+    "@nrwl/angular:application": {
+      "unitTestRunner": "jest",
+      "e2eTestRunner": "cypress"
+    },
+    "@nrwl/angular:library": {
+      "unitTestRunner": "jest"
+    }
+  },
+  "defaultProject": "my-cv"
+}

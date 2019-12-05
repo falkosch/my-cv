@@ -1,0 +1,28 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "rootDir": ".",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "es2015",
+    "module": "esnext",
+    "typeRoots": ["node_modules/@types"],
+    "lib": ["es2017", "dom"],
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "baseUrl": ".",
+    "paths": {
+      "@my-cv/anchor-scroll": ["libs/anchor-scroll/src/index.ts"],
+      "@my-cv/print-hint": ["libs/print-hint/src/index.ts"],
+      "@my-cv/cv-model": ["libs/cv-model/src/index.ts"],
+      "@my-cv/location": ["libs/location/src/index.ts"]
+    }
+  },
+  "exclude": ["node_modules", "tmp"]
+}

@@ -1,0 +1,11 @@
+<mat-card class="display-print">
+  <div fxLayoutAlign="start center">
+    <mat-icon color="primary">info</mat-icon>
+    <span>
+      {{ 'original-online-print-hint' | translate }}
+      <a [href]="onlineHref" target="_blank" rel="noopener noreferrer">
+        <span>{{ onlineHref }}</span>
+      </a>
+    </span>
+  </div>
+</mat-card>

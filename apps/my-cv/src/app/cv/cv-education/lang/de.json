@@ -1,0 +1,7 @@
+{
+  "cv.education.topics.intro": "Studiendschwerpunkt/e",
+  "cv.education.topics.conjunction": " und ",
+  "cv.education.courses.intro": "Studienfächer",
+  "cv.education.thesis": "Abschlussarbeit",
+  "cv.education.thesis.title": "&bdquo;{{ title }}&ldquo;"
+}

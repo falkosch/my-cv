@@ -1,0 +1,6 @@
+{
+  "cv.education.milestone.date": "{{ from }} &ndash;<br>{{ to }}",
+  "cv.education.topics.separator": ": ",
+  "cv.education.courses.separator": ": ",
+  "cv.education.thesis.separator": ": "
+}

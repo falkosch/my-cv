@@ -1,0 +1,8 @@
+<mat-chip-list>
+  <mat-chip *ngFor="let hobby of hobbies" [matTooltip]="hobby.alt | translate">
+    <a class="print-href" *ngIf="hobby.href" target="_blank" [href]="hobby.href | translate" rel="noopener noreferrer">
+      <span>{{ hobby.text | translate }}</span>
+    </a>
+    <span *ngIf="!hobby.href">{{ hobby.text | translate }}</span>
+  </mat-chip>
+</mat-chip-list>

@@ -1,0 +1,47 @@
+$navbar-height: 64px;
+$navbar-height-xs: 56px;
+
+:host {
+  @media print {
+    display: flex;
+
+    nav {
+      display: none;
+    }
+  }
+}
+
+@media screen {
+  nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 2;
+
+    .mat-stroked-button:not(:first-of-type) {
+      margin-left: 8px;
+    }
+  }
+
+  .nav-wrapper {
+    &:not(.xs) {
+      padding-top: $navbar-height;
+
+      > nav {
+        height: $navbar-height;
+      }
+    }
+    &.xs {
+      padding-top: $navbar-height-xs;
+
+      > nav {
+        height: $navbar-height-xs;
+      }
+    }
+  }
+}
+
+.fixed-container {
+  padding: 16px;
+}

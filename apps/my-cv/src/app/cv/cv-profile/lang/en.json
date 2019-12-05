@@ -1,0 +1,5 @@
+{
+  "cv.profile.mail.body": "Hello%20{{ first }}%20{{ last }},%0A%0A...%0A%0A",
+  "cv.profile.mail.subject": "[JOB%20INQUIRY]%20We%20want%20you%20as%20...",
+  "cv.profile.picture.alt": "Profile picture"
+}

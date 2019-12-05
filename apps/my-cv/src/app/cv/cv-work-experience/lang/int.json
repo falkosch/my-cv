@@ -1,0 +1,8 @@
+{
+  "cv.work-experience.date": "{{from}} &ndash;<br>{{to}}",
+  "cv.work-experience.company.connector": " | ",
+  "cv.work-experience.skills.separator": ": ",
+  "cv.work-experience.skills.refers-other.1": "",
+  "cv.work-experience.project.title.separator": ": ",
+  "cv.work-experience.project.date": " ({{from}} &ndash; {{to}})"
+}

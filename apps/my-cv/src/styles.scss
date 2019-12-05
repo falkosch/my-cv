@@ -1,0 +1,145 @@
+@import './scss/vendor';
+
+body {
+  min-width: 320px;
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+
+  &.a-pointer {
+    cursor: pointer;
+  }
+}
+
+p {
+  margin: 0 !important;
+  margin-block-start: 8px !important;
+  margin-block-end: 8px !important;
+
+  > .mat-chip-list {
+    padding-top: 0;
+  }
+}
+
+.spacer-16 {
+  flex: 0 1 16px;
+}
+
+.spacer-stretch {
+  flex: 1 1 auto;
+}
+
+.mat-icon ~ span {
+  margin-left: 8px;
+}
+
+.mat-chip-list {
+  display: block;
+  padding: 8px 0 0;
+
+  > .mat-chip-list-wrapper {
+    > .mat-chip {
+      padding: 4px 8px !important;
+      min-height: 24px !important;
+      height: initial !important;
+    }
+  }
+}
+
+@media screen {
+  .display-print {
+    display: none !important;
+  }
+
+  .display-print-block {
+    display: none !important;
+  }
+
+  .display-print-inline {
+    display: none !important;
+  }
+}
+
+@media print {
+  @page {
+    margin: 1cm;
+  }
+
+  .display-screen {
+    display: none !important;
+  }
+
+  .display-print-block {
+    display: block !important;
+  }
+
+  .display-print-inline {
+    display: inline !important;
+  }
+
+  body {
+    color-adjust: exact;
+  }
+
+  p {
+    text-align: justify;
+  }
+
+  a.print-href::after {
+    content: ' (' attr(href) ')';
+  }
+
+  .fixed-container {
+    padding: 0 !important;
+  }
+
+  .cv-roles {
+    margin: 0;
+  }
+
+  .mat-expansion-indicator {
+    opacity: 0;
+  }
+
+  .mat-expansion-panel {
+    &:not(.mat-expanded) {
+      display: none !important;
+    }
+
+    > .mat-expansion-panel-header {
+      padding: 0 !important;
+      border: none;
+      border-bottom-width: 1px;
+      border-bottom-style: solid;
+      border-radius: 0;
+      height: initial !important;
+    }
+
+    > .mat-expansion-panel-content {
+      > .mat-expansion-panel-body {
+        padding: 0 !important;
+      }
+    }
+  }
+
+  .mat-card {
+    padding: 8px 0 0 !important;
+
+    > .mat-card-header {
+      > .mat-card-header-text {
+        margin: 0 !important;
+
+        > .mat-card-title {
+          margin: 0 !important;
+          //font-size: 1rem;
+        }
+      }
+    }
+  }
+
+  mgl-timeline {
+    padding: 8px 0 !important;
+  }
+}

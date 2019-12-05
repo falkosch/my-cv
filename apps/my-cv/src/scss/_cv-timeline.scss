@@ -1,0 +1,71 @@
+@import './variables';
+
+@mixin cv-timeline {
+  mgl-timeline {
+    padding: 16px 0;
+
+    &.mobile {
+      > mgl-timeline-entry {
+        margin-left: $timeline-indent-mobile;
+        width: calc(100% - #{$timeline-indent-mobile});
+      }
+
+      ::ng-deep > .mgl-timeline-line {
+        left: $timeline-indent-mobile - $timeline-middle-mobile !important;
+      }
+    }
+
+    ::ng-deep > .mgl-timeline-line {
+      left: $timeline-indent - $timeline-middle !important;
+    }
+
+    > mgl-timeline-entry {
+      margin-left: $timeline-indent;
+      width: calc(100% - #{$timeline-indent});
+
+      &:not(:last-child) {
+        margin-bottom: 16px;
+      }
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+
+      mgl-timeline-entry-content {
+        height: 100% !important;
+
+        ::ng-deep > div {
+          padding: 0 8px;
+        }
+      }
+
+      mgl-timeline-entry-dot {
+        pointer-events: none;
+      }
+
+      mgl-timeline-entry-header {
+        pointer-events: none;
+        min-height: 48px;
+        padding: 0 0 0 24px;
+
+        .mat-title,
+        .mat-subheading-1 {
+          margin: 0;
+          padding: 0 8px;
+        }
+        .mat-caption {
+          padding: 0 8px;
+        }
+      }
+
+      mgl-timeline-entry-side {
+        left: -$timeline-indent;
+        width: $timeline-indent - 32px;
+
+        .mat-subheading-2 {
+          margin: 0;
+        }
+      }
+    }
+  }
+}

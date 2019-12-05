@@ -1,0 +1,53 @@
+<div class="nav-wrapper" ngClass.xs="xs">
+  <nav class="mat-elevation-z6">
+    <mat-toolbar color="primary">
+      <mat-toolbar-row fxHide.xs>
+        <span>
+          <span>{{ 'app.title' | translate }}</span>
+          <span fxHide.sm>
+            <span> {{ 'app.title.connector' | translate }} </span>
+            <span>{{ appDocument.cv.profile.name.first | translate }}
+              {{ appDocument.cv.profile.name.last | translate }}</span>
+          </span>
+        </span>
+        <span class="spacer-16"></span>
+        <button mat-stroked-button *ngFor="let link of appDocument.links" (click)="navigate(link.elementId)"
+          [matTooltip]="(link.icon ? link.text : '') | translate">
+          <mat-icon *ngIf="link.icon">{{ link.icon }}</mat-icon>
+          <span *ngIf="!link.icon">{{ link.text | translate }}</span>
+        </button>
+        <span class="spacer-stretch"></span>
+        <button mat-button *ngFor="let language of appDocument.languages" (click)="changeLanguage(language.code)"
+          [matTooltip]="(language.icon ? language.text : '') | translate">
+          <mat-icon *ngIf="language.icon">
+            <span class="flag-icon flag-icon-{{language.icon}} flag-icon-squared"></span>
+          </mat-icon>
+          <span *ngIf="!language.icon">{{ language.text | translate }}</span>
+        </button>
+      </mat-toolbar-row>
+      <mat-toolbar-row fxHide.gt-xs>
+        <span>{{ 'app.title' | translate }}</span>
+        <span class="spacer-stretch"></span>
+        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Links to sections in CV">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item *ngFor="let link of appDocument.links" (click)="navigate(link.elementId)">
+            <mat-icon *ngIf="link.icon" color="primary">{{ link.icon }}</mat-icon>
+            {{ link.text | translate }}
+          </button>
+          <button mat-menu-item *ngFor="let language of appDocument.languages" (click)="changeLanguage(language.code)">
+            <mat-icon>
+              <span *ngIf="language.icon" class="flag-icon flag-icon-{{language.icon}} flag-icon-squared"></span>
+            </mat-icon>
+            {{ language.text | translate }}
+          </button>
+        </mat-menu>
+      </mat-toolbar-row>
+    </mat-toolbar>
+  </nav>
+  <div class="fixed-container" fxLayout="row" fxLayoutAlign="center">
+    <my-cv-cv [cv]="appDocument.cv" fxFlex.sm="570px" fxFlex.md="930px" fxFlex.gt-md="1200px" fxLayout="column">
+    </my-cv-cv>
+  </div>
+</div>

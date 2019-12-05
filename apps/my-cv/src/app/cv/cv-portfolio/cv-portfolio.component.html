@@ -1,0 +1,20 @@
+<div [innerHTML]="portfolio.description | translate"></div>
+<div fxLayout="row wrap" fxLayout.lt-md="column" fxLayoutGap="16px grid">
+  <div *ngFor="let portfolioLink of portfolio.links" fxFlex="calc(50% -16px)" fxFlex.lt-md>
+    <mat-card fxLayout="column" fxLayoutAlign="center center">
+      <mat-card-header>
+        <mat-card-title fxLayoutAlign="start center">
+          <a target="_blank" [href]="portfolioLink.href | translate" rel="noopener noreferrer">
+            <span>{{ portfolioLink.title | translate }}</span>
+          </a>
+        </mat-card-title>
+      </mat-card-header>
+      <a *ngIf="portfolioLink.image" target="_blank" [href]="portfolioLink.href | translate" rel="noopener noreferrer">
+        <img fxFlexAlign="center" mat-card-md-image [src]="portfolioLink.image" [alt]="portfolioLink.title | translate">
+      </a>
+      <mat-card-content>
+        <p [innerHTML]="portfolioLink.description | translate"></p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

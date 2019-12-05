@@ -1,0 +1,76 @@
+<mgl-timeline [alternate]="false" side="right">
+  <mgl-timeline-entry *ngFor="let milestone of workExperience">
+    <mgl-timeline-entry-dot class="accent" fxLayoutAlign="center center">
+      {{ milestone.date.spentMonths | translate }}
+    </mgl-timeline-entry-dot>
+    <mgl-timeline-entry-side fxHide.lt-md>
+      <div class="text-em-color mat-subheading-2"
+        [innerHTML]="'cv.work-experience.date' | translate: {from: (milestone.date.from | translate), to: (milestone.date.to | translate)}">
+      </div>
+    </mgl-timeline-entry-side>
+    <mgl-timeline-entry-header fxLayout.xs="column" fxLayoutAlign="center center" fxLayoutAlign.lt-md="start center">
+      <div fxFlex="0 0 auto" fxHide fxShow.lt-md class="mat-caption"
+        [innerHTML]="'cv.work-experience.date' | translate: {from: (milestone.date.from | translate), to: (milestone.date.to | translate)}">
+      </div>
+      <div fxFlex="100%" class="mat-title">
+        {{ milestone.title | translate }}
+      </div>
+    </mgl-timeline-entry-header>
+    <mgl-timeline-entry-content>
+      <p>
+        <span *ngFor="let group of milestone.company.groups; first as isFirst">
+          <span *ngIf="!isFirst">{{ 'cv.work-experience.company.connector' | translate }}</span>
+          <a *ngIf="group.href" class="print-href" target="_blank" [href]="group.href | translate"
+            rel="noopener noreferrer">
+            <span>{{ group.name | translate }}</span>
+          </a>
+          <span *ngIf="!group.href">{{ group.name | translate }}</span>
+        </span>
+        <span class="display-screen">
+          <br>
+          <span>{{ milestone.company.address | translate }}</span>
+        </span>
+      </p>
+      <p *ngIf="milestone.introduction" class="mat-caption" [innerHTML]="milestone.introduction | translate">
+      </p>
+      <p *ngIf="milestone.skills" [id]="milestone.skills.id">
+        <strong>{{ 'cv.work-experience.skills' | translate }}</strong>{{ 'cv.work-experience.skills.separator' | translate }}
+        <mat-chip-list>
+          <mat-chip *ngFor="let skill of milestone.skills.items" [color]="skill.color" [selected]="!!skill.color"
+            [matTooltip]="skill.alt | translate">
+            <span>{{ skill.text | translate }}</span>
+          </mat-chip>
+        </mat-chip-list>
+      </p>
+      <p *ngIf="milestone.refersOtherSkillsQuery()">
+        <strong>{{ 'cv.work-experience.skills' | translate }}</strong>{{ 'cv.work-experience.skills.separator' | translate }}
+        {{ 'cv.work-experience.skills.refers-other.0' | translate }}
+        <a class="a-pointer" (click)="navigate(milestone.refersOtherSkillsQuery().id)" rel="noopener noreferrer">
+          <span>{{ milestone.refersOtherSkillsQuery().hintText | translate }}</span>
+        </a>
+        {{ 'cv.work-experience.skills.refers-other.1' | translate }}
+      </p>
+      <p *ngFor="let project of milestone.projects">
+        <span *ngFor="let title of project.titles; first as isFirst">
+          <span *ngIf="!isFirst">{{ 'cv.work-experience.project.title.conjunction' | translate }}</span>
+          <strong>
+            <a *ngIf="title.refersOtherProjectQuery()" class="a-pointer"
+              (click)="navigate(title.refersOtherProjectQuery().id)" rel="noopener noreferrer">
+              <span>{{ title.text | translate }}</span>
+            </a>
+            <a *ngIf="isFirst && !title.refersOtherProjectQuery()" [id]="project.id" class="print-href" target="_blank"
+              [href]="project.href | translate" rel="noopener noreferrer">
+              <span>{{ title.text | translate }}</span>
+            </a>
+            <span *ngIf="!isFirst && !title.refersOtherProjectQuery()">{{ title.text | translate }}</span>
+          </strong>
+        </span>
+        <span *ngIf="project.date"
+          [innerHTML]="'cv.work-experience.project.date' | translate: {from: (project.date.from | translate), to: (project.date.to | translate)}"></span>
+        <span>{{ 'cv.work-experience.project.title.separator' | translate }}</span>
+        <br>
+        <span class="mat-caption" [innerHTML]="project.description | translate"></span>
+      </p>
+    </mgl-timeline-entry-content>
+  </mgl-timeline-entry>
+</mgl-timeline>

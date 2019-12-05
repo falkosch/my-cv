@@ -1,0 +1,21 @@
+<my-cv-cv-profile [profile]="cv.profile"></my-cv-cv-profile>
+
+<my-cv-print-hint [printVersionHref]="cv.printVersionHref"></my-cv-print-hint>
+<my-cv-original-online-print-hint [originalOnlineVersionHref]=cv.originalOnlineVersionHref>
+</my-cv-original-online-print-hint>
+
+<mat-accordion multi="true">
+
+  <mat-expansion-panel *ngFor="let section of cv.sections" [id]="section.navigationId || ''"
+    [class.display-screen]="section.excludeInPrint" expanded="true">
+    <mat-expansion-panel-header>
+      <mat-panel-title fxLayoutAlign="start center">
+        <mat-icon color="primary">{{ section.titleIcon }}</mat-icon>
+        <span>{{ section.title | translate }}</span>
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+
+    <my-cv-cv-section [section]="section"></my-cv-cv-section>
+  </mat-expansion-panel>
+
+</mat-accordion>

@@ -1,0 +1,52 @@
+<div id="profile" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="start start" fxLayoutGap="8px"
+  fxLayoutGap.gt-xs="16px" class="cv-section">
+  <div fxFlex.gt-xs="25%" fxFlexAlign.xs="center" fxLayout="row" fxLayoutAlign="center center">
+    <img fxFlex="128px" fxFlex.md="192px" fxFlex.gt-md="256px" class="cv-profile-image mat-elevation-z3"
+      [src]="profile.pictures[profile.pictureIndex]" [alt]="'cv.profile.picture.alt' | translate"
+      (click)="nextProfilePicture()" />
+  </div>
+
+  <div>
+    <div class="cv-name" ngClass="mat-display-1" ngClass.gt-xs="mat-display-2" ngClass.gt-sm="mat-display-3"
+      ngClass.gt-md="mat-display-4">
+      {{ profile.name.first | translate }} {{ profile.name.last | translate }}
+    </div>
+    <div class="cv-roles" ngClass="mat-subheading-2" ngClass.gt-sm="mat-title">
+      <span *ngFor="let role of profile.roles; first as isFirst">
+        <span *ngIf="!isFirst">{{ 'cv.profile.role.separator' | translate }}</span>
+        <span>{{ role | translate }}</span>
+      </span>
+    </div>
+
+    <div fxLayout="row wrap" fxLayoutAlign="start start" fxLayoutGap.gt-xs="16px grid">
+      <div fxFlex="50%" fxFlex.gt-sm="calc(100%/3 -16px)">
+        <mat-icon color="primary">
+          <div class="birthdate">*</div>
+        </mat-icon>
+        <span>{{ profile.birthdate | translate }}</span>
+      </div>
+
+      <div fxFlex="50%" fxFlex.gt-sm="calc(100%/3 -16px)">
+        <mat-icon color="primary">location_on</mat-icon>
+        <span>{{ profile.location | translate }}</span>
+      </div>
+
+      <div fxFlex="100%" fxFlex.gt-sm="calc(100%/3 -16px)">
+        <a target="_blank" [href]="profileMailHref" fxLayoutAlign="start center" rel="noopener noreferrer">
+          <mat-icon color="primary">mail</mat-icon>
+          <span class="display-screen">{{ profile.mail | translate }}</span>
+          <span class="display-print mat-caption">{{ profile.mail | translate }}</span>
+        </a>
+      </div>
+
+      <div *ngFor="let link of profile.links; let i = index" fxFlex="calc(100%/2 -16px)"
+        [fxFlex.gt-sm]="getFlexGtSmForLink(i)">
+        <a target="_blank" [href]="link.href | translate" fxLayoutAlign="start center" rel="noopener noreferrer">
+          <mat-icon [svgIcon]="link.icon" color="primary"></mat-icon>
+          <span class="display-screen">{{ link.text | translate }}</span>
+          <span class="display-print mat-caption">{{ link.href | translate }}</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

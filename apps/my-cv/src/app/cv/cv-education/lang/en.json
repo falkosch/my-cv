@@ -1,0 +1,7 @@
+{
+  "cv.education.topics.intro": "Focus on",
+  "cv.education.topics.conjunction": " and ",
+  "cv.education.courses.intro": "Courses",
+  "cv.education.thesis": "Thesis",
+  "cv.education.thesis.title": "&ldquo;{{ title }}&rdquo;"
+}

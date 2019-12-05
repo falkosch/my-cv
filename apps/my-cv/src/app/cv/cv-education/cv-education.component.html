@@ -1,0 +1,59 @@
+<mgl-timeline [alternate]="false" side="right">
+  <mgl-timeline-entry *ngFor="let milestone of education">
+    <mgl-timeline-entry-side fxHide.lt-md>
+      <div class="text-em-color mat-subheading-2"
+        [innerHTML]="'cv.education.milestone.date' | translate: {from: (milestone.date.from | translate), to: (milestone.date.to | translate)}">
+      </div>
+    </mgl-timeline-entry-side>
+    <mgl-timeline-entry-header fxLayout.xs="column" fxLayoutAlign="center center" fxLayoutAlign.lt-md="start center">
+      <div fxFlex="0 0 auto" fxHide fxShow.lt-md class="mat-caption"
+        [innerHTML]="'cv.education.milestone.date' | translate: {from: (milestone.date.from | translate), to: (milestone.date.to | translate)}">
+      </div>
+      <div fxFlex="100%" class="mat-title">
+        {{ milestone.title | translate }}
+      </div>
+    </mgl-timeline-entry-header>
+    <mgl-timeline-entry-content>
+      <p>
+        <a class="print-href" target="_blank" [href]="milestone.faculty.href | translate" rel="noopener noreferrer">
+          <span>{{ milestone.faculty.name | translate }}</span>
+        </a>
+        <br>
+        <span>{{ 'cv.education.topics.intro' | translate }}</span>
+        <span>{{ 'cv.education.topics.separator' | translate }}</span>
+        <span *ngFor="let focusTopic of milestone.focusTopics; first as isFirst">
+          <span *ngIf="!isFirst">{{ 'cv.education.topics.conjunction' | translate }}</span>
+          <strong>{{ focusTopic | translate }}</strong>
+        </span>
+      </p>
+      <p>
+        <strong>{{ 'cv.education.courses.intro' | translate }}</strong>
+        <span>{{ 'cv.education.courses.separator' | translate }}</span>
+        <mat-chip-list>
+          <mat-chip *ngFor="let course of milestone.courses" [color]="course.color" [selected]="!!course.color"
+            [matTooltip]="course.alt | translate">
+            <span>{{ course.text | translate }}</span>
+          </mat-chip>
+        </mat-chip-list>
+      </p>
+      <p>
+        <span>
+          <strong>{{ 'cv.education.thesis' | translate }}</strong>
+          <span>{{ 'cv.education.thesis.separator' | translate }}</span>
+          <span
+            [innerHTML]="'cv.education.thesis.title' | translate: {title: (milestone.thesis.title | translate)}"></span>
+        </span>
+        <span class="display-screen mat-caption">
+          <br>
+          <span>{{ milestone.thesis.abstract | translate }}</span>
+        </span>
+        <mat-chip-list>
+          <mat-chip *ngFor="let skill of milestone.thesis.skills" [color]="skill.color" [selected]="!!skill.color"
+            [matTooltip]="skill.alt | translate">
+            <span>{{ skill.text | translate }}</span>
+          </mat-chip>
+        </mat-chip-list>
+      </p>
+    </mgl-timeline-entry-content>
+  </mgl-timeline-entry>
+</mgl-timeline>

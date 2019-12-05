@@ -1,0 +1,50 @@
+<div fxLayout="row wrap" fxLayout.lt-md="column" fxLayoutGap="16px grid">
+  <div fxFlex="100%" fxFlex.lt-md>
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title fxLayoutAlign="start center">
+          <mat-icon color="primary">whatshot</mat-icon>
+          <span>{{ 'cv.summary.skills' | translate }}</span>
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <mat-chip-list>
+          <mat-chip *ngFor="let skill of summary.skills" [color]="skill.color" [selected]="!!skill.color"
+            [matTooltip]="skill.alt | translate">
+            <a class="print-href" *ngIf="skill.href" target="_blank" [href]="skill.href | translate"
+              rel="noopener noreferrer">
+              <span>{{ skill.text | translate }}</span>
+            </a>
+            <span *ngIf="!skill.href">{{ skill.text | translate }}</span>
+          </mat-chip>
+        </mat-chip-list>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <div fxFlex="calc(50% -16px)" fxFlex.lt-md>
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title fxLayoutAlign="start center">
+          <mat-icon color="primary">person</mat-icon>
+          <span>{{ 'cv.summary.core-beliefs' | translate }}</span>
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div [innerHTML]="summary.coreBeliefs | translate"></div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <div fxFlex="calc(50% -16px)" fxFlex.lt-md>
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title fxLayoutAlign="start center">
+          <mat-icon color="primary">timeline</mat-icon>
+          <span>{{ 'cv.summary.career-objectives' | translate }}</span>
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div [innerHTML]="summary.careerObjectives | translate"></div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

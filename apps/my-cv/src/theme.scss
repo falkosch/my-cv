@@ -1,0 +1,111 @@
+@import '~@angular/material/theming';
+
+// Plus imports for other components in your app.
+@import '~angular-mgl-timeline/theme';
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat-core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$my-cv-app-primary: mat-palette($mat-indigo);
+$my-cv-app-accent: mat-palette($mat-deep-purple, 50, 50, A400);
+
+// The warn palette is optional (defaults to red).
+$my-cv-app-warn: mat-palette($mat-red);
+
+// Create the theme object (a Sass map containing all of the palettes).
+$my-cv-app-theme: mat-light-theme(
+  $my-cv-app-primary,
+  $my-cv-app-accent,
+  $my-cv-app-warn
+);
+
+$my-cv-app-font-weight-light: 300;
+$my-cv-app-font-weight-regular: 400;
+$my-cv-app-font-weight-medium: 500;
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include angular-material-theme($my-cv-app-theme);
+@include mgl-timeline-theme($my-cv-app-theme);
+
+// Define a custom typography config that overrides the font-family as well as the
+// `headlines` and `body-1` levels.
+
+@media screen {
+  $custom-typography: mat-typography-config();
+  @include angular-material-typography($custom-typography);
+}
+
+@media print {
+  $custom-typography: mat-typography-config(
+    $font-family: 'Georgia, "Times New Roman", Times, serif',
+  );
+  @include angular-material-typography($custom-typography);
+
+  mgl-timeline {
+    font-family: mat-font-family($custom-typography) !important;
+  }
+
+  .mat-expansion-panel,
+  .mat-card {
+    box-shadow: none !important;
+  }
+
+  strong {
+    color: mat-color($my-cv-app-primary, text) !important;
+    font-weight: $my-cv-app-font-weight-regular;
+  }
+
+  p {
+    font-weight: $my-cv-app-font-weight-light !important;
+  }
+
+  .mat-expansion-panel {
+    > .mat-expansion-panel-header {
+      border-bottom-color: lightgray;
+
+      &,
+      > span {
+        font-size: 1.5rem;
+      }
+    }
+  }
+
+  .mat-app-background {
+    background: none;
+  }
+
+  .mat-chip {
+    font-size: 12px !important;
+    font-weight: $my-cv-app-font-weight-light !important;
+
+    a {
+      color: mat-color($my-cv-app-primary, 'lighter-contrast') !important;
+    }
+  }
+}
+
+.mat-chip[aria-selected] {
+  color: mat-color($my-cv-app-primary, 'lighter-contrast') !important;
+  background-color: mat-color($my-cv-app-primary, lighter) !important;
+}
+
+.text-em-color {
+  color: mat-color($my-cv-app-primary, text);
+}
+
+a {
+  color: mat-color($my-cv-app-primary, text);
+}
+
+my-cv-print-hint .mat-card {
+  border: 4px dashed mat-color($my-cv-app-primary, lighter);
+  background-color: transparent;
+  box-shadow: none !important;
+}
