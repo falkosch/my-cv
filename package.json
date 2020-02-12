@@ -62,6 +62,7 @@
     "@angular/cli": "^8.3.14",
     "@angular/compiler-cli": "^8.2.12",
     "@angular/language-service": "^8.2.12",
+    "@nrwl/cli": "^8.7.0",
     "@nrwl/cypress": "^8.7.0",
     "@nrwl/jest": "^8.7.0",
     "@nrwl/linter": "^8.7.0",
