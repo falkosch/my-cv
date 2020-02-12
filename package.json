@@ -29,7 +29,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "nx affected:lint",
+      "pre-commit": "nx affected:lint && nx affected:test",
       "post-commit": "git update-index --again"
     }
   },
