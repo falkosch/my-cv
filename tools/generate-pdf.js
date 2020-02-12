@@ -1,7 +1,10 @@
 const puppeteer = require('puppeteer');
 
 const languages = ['de', 'en'];
-const website = (languageCode) => `https://github.com/falkosch/my-cv/?l=${languageCode}`;
+
+// Change the location of where your CV is deployed, the currently set one ("my-cv") is only for demonstration purposes.
+const website = languageCode =>
+  `https://my-cv.iterative-prototyping.com/?l=${languageCode}`;
 
 const launchOptions = {
   args: [
@@ -11,22 +14,22 @@ const launchOptions = {
   ],
   defaultViewport: {
     width: 1920,
-    height: 1080
+    height: 1080,
   },
 };
 
 const gotoOptions = {
-  waitUntil: ['load', 'networkidle0']
+  waitUntil: ['load', 'networkidle0'],
 };
 
-const pdfOptions = (languageCode) => ({
+const pdfOptions = languageCode => ({
   displayHeaderFooter: true,
   path: `../dist/apps/my-cv/assets/CurriculumVitae-${languageCode}.pdf`,
   format: 'A4',
 });
 
 const printCSS = {
-  'de': {
+  de: {
     content: `
       /* Add css if the print version looks weird or broken due page breaks */
       my-cv-cv-work-experience > mgl-timeline > mgl-timeline-entry:nth-child(2) {
@@ -34,14 +37,14 @@ const printCSS = {
       }
     `,
   },
-  'en': {
+  en: {
     content: `
       /* same but for another language code... */
       my-cv-cv-work-experience > mgl-timeline > mgl-timeline-entry:nth-child(2) {
         /* margin-bottom: 80px !important; */
       }
     `,
-  }
+  },
 };
 
 async function browse(languageCode) {
@@ -52,17 +55,13 @@ async function browse(languageCode) {
       await page.goto(website(languageCode), gotoOptions);
       await page.addStyleTag(printCSS[languageCode]);
       await page.pdf(pdfOptions(languageCode));
-    }
-    finally {
+    } finally {
       await browser.close();
     }
-  }
-  catch (error) {
+  } catch (error) {
     console.error('Something went horribly wrong: ', error);
     process.exit(-1);
   }
-};
+}
 
-Promise.all(
-  languages.map(languageCode => browse(languageCode))
-);
+Promise.all(languages.map(languageCode => browse(languageCode)));
