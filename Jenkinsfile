@@ -3,7 +3,7 @@ pipeline {
     docker {
       image 'atlassianlabs/docker-node-jdk-chrome-firefox:2020-02-03'
       label 'docker && linux'
-      args '--memory=1g --memory-swap=1g'
+      args '--memory=2g --memory-swap=2g'
     }
   }
 
