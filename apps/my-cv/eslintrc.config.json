@@ -1,0 +1,10 @@
+{
+  "extends": "../../eslintrc.json",
+  "parserOptions": {
+    "project": [
+      "apps/my-cv/tsconfig.json",
+      "apps/my-cv/tsconfig.app.json",
+      "apps/my-cv/tsconfig.spec.json"
+    ]
+  }
+}

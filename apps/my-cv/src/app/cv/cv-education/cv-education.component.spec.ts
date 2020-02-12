@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { CvEducationComponent } from './cv-education.component';
+import { CvEducationModule } from './cv-education.module';
 
 describe('CvEducationComponent', () => {
   let component: CvEducationComponent;
@@ -8,9 +10,8 @@ describe('CvEducationComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CvEducationComponent ]
-    })
-    .compileComponents();
+      imports: [TranslateModule.forRoot(), CvEducationModule],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

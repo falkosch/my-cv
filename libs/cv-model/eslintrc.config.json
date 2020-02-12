@@ -1,0 +1,10 @@
+{
+  "extends": "../../eslintrc.json",
+  "parserOptions": {
+    "project": [
+      "libs/cv-model/tsconfig.json",
+      "libs/cv-model/tsconfig.lib.json",
+      "libs/cv-model/tsconfig.spec.json"
+    ]
+  }
+}

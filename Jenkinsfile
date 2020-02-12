@@ -26,13 +26,14 @@ pipeline {
   stages {
     stage('checkout') {
       steps {
-        sh 'npm install'
+        sh 'npm ci'
       }
     }
 
     stage('validation') {
       steps {
         sh 'npm run lint'
+        sh 'npm run test'
       }
     }
 

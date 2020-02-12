@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { CvSectionComponent } from './cv-section.component';
+import { CvSectionModule } from './cv-section.module';
 
 describe('CvSectionComponent', () => {
   let component: CvSectionComponent;
@@ -8,14 +10,21 @@ describe('CvSectionComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CvSectionComponent ]
-    })
-    .compileComponents();
+      imports: [TranslateModule.forRoot(), CvSectionModule],
+    }).compileComponents();
   }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(CvSectionComponent);
     component = fixture.componentInstance;
+
+    component.section = {
+      componentId: 'cv-education',
+      content: {},
+      title: '',
+      titleIcon: '',
+    };
+
     fixture.detectChanges();
   });
 

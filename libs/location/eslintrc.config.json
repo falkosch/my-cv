@@ -1,0 +1,10 @@
+{
+  "extends": "../../eslintrc.json",
+  "parserOptions": {
+    "project": [
+      "libs/location/tsconfig.json",
+      "libs/location/tsconfig.lib.json",
+      "libs/location/tsconfig.spec.json"
+    ]
+  }
+}

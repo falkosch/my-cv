@@ -2,14 +2,18 @@
   "npmScope": "my-cv",
   "implicitDependencies": {
     "angular.json": "*",
-    "package.json": "*",
+    "package.json": {
+      "dependencies": "*",
+      "devDependencies": "*"
+    },
     "tsconfig.json": "*",
     "tslint.json": "*",
     "nx.json": "*"
   },
   "projects": {
     "my-cv-e2e": {
-      "tags": []
+      "tags": [],
+      "implicitDependencies": ["my-cv"]
     },
     "my-cv": {
       "tags": []

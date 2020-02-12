@@ -2,8 +2,6 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class LocationService {
-  constructor() {}
-
   public getParam(name): string | undefined {
     const locationSearch = new URLSearchParams(window.location.search);
     if (locationSearch.has(name)) {

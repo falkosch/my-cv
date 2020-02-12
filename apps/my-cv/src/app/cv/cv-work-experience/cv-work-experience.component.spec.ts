@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { CvWorkExperienceComponent } from './cv-work-experience.component';
+import { CvWorkExperienceModule } from './cv-work-experience.module';
 
 describe('CvWorkExperienceComponent', () => {
   let component: CvWorkExperienceComponent;
@@ -8,9 +10,8 @@ describe('CvWorkExperienceComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CvWorkExperienceComponent ]
-    })
-    .compileComponents();
+      imports: [TranslateModule.forRoot(), CvWorkExperienceModule],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

@@ -5,8 +5,6 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class CvService {
-  constructor() {}
-
   model(): CV {
     return cvFactory();
   }

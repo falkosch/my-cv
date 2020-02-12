@@ -1,0 +1,10 @@
+{
+  "extends": "../../eslintrc.json",
+  "parserOptions": {
+    "project": [
+      "libs/anchor-scroll/tsconfig.json",
+      "libs/anchor-scroll/tsconfig.lib.json",
+      "libs/anchor-scroll/tsconfig.spec.json"
+    ]
+  }
+}

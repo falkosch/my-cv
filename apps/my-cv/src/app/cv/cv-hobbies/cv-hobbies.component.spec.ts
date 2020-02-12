@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { CvHobbiesComponent } from './cv-hobbies.component';
+import { CvHobbiesModule } from './cv-hobbies.module';
 
 describe('CvHobbiesComponent', () => {
   let component: CvHobbiesComponent;
@@ -8,9 +10,8 @@ describe('CvHobbiesComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CvHobbiesComponent ]
-    })
-    .compileComponents();
+      imports: [TranslateModule.forRoot(), CvHobbiesModule],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

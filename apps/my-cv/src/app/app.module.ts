@@ -69,10 +69,9 @@ export class AppModule {
 
     const supportedLanguages = ['de', 'en'];
     const languageFromSearch = locationService.getParam('l');
-    const bestLanguage =
-      supportedLanguages.indexOf(languageFromSearch) >= 0
-        ? languageFromSearch
-        : supportedLanguages[0];
+    const bestLanguage = supportedLanguages.includes(languageFromSearch)
+      ? languageFromSearch
+      : supportedLanguages[0];
 
     translate.setDefaultLang('int');
     translate.use(bestLanguage);

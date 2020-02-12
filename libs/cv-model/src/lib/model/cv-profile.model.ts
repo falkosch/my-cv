@@ -15,11 +15,7 @@ export const cvProfileFactory = (): CVProfile => ({
     first: 'cv.profile.name.first',
     last: 'cv.profile.name.last',
   },
-  pictures: [
-    'assets/profile-1.jpg',
-  ],
+  pictures: ['assets/profile-1.jpg'],
   pictureIndex: 0,
-  roles: [
-    'cv.profile.roles.software-engineer',
-  ],
+  roles: ['cv.profile.roles.software-engineer'],
 });

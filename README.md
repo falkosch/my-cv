@@ -11,21 +11,21 @@
 
 The app has a basic layout (from top to bottom):
 
-* A sticky navigation header (in `apps/src/app/app.component.ts`)
+- A sticky navigation header (in `apps/src/app/app.component.ts`)
 
-* Personal profile on top (`apps/src/app/cv/cv-profile`)
+- Personal profile on top (`apps/src/app/cv/cv-profile`)
 
-* An accordion of different collapsible sections (`apps/src/app/cv/cv-sections`)
+- An accordion of different collapsible sections (`apps/src/app/cv/cv-sections`)
 
-  * Summary section (`apps/src/app/cv/cv-summary`)
+  - Summary section (`apps/src/app/cv/cv-summary`)
 
-  * Work experience timeline section (`apps/src/app/cv/cv-work-experience`)
+  - Work experience timeline section (`apps/src/app/cv/cv-work-experience`)
 
-  * Education timeline section (`apps/src/app/cv/cv-education`)
+  - Education timeline section (`apps/src/app/cv/cv-education`)
 
-  * Hobbies section (`apps/src/app/cv/cv-hobbies`)
+  - Hobbies section (`apps/src/app/cv/cv-hobbies`)
 
-  * Portfolio section (`apps/src/app/cv/cv-portfolio`)
+  - Portfolio section (`apps/src/app/cv/cv-portfolio`)
 
 The components of the layout do not contain the actual CV information. The app is model-driven, i.e. you will find a dedicated library package in `libs/cv-model/` that contains the meta-model of the CV and all CV information that you will need to fill out.
 
@@ -35,19 +35,19 @@ The `libs/cv-model/` is likewise structured as the app itself. For each part of 
 
 The UI of the app is multilingual or internationalized. See `apps/my-cv/src/app/model/app-document.model.ts` for configuring what languages you want to have supported. The translation files in `libs/cv-model/src/lib/model/lang/` need the actual texts that you want to have in your CV. Fill the CV model with the keys, which point to the actual texts in the translation files. Internationalization support is provided by the [ngx-translate](https://github.com/ngx-translate/core) library.
 
-* Personal profile is contained in `libs/cv-model/src/lib/model/cv-profile.model.ts`
+- Personal profile is contained in `libs/cv-model/src/lib/model/cv-profile.model.ts`
 
-* Contextual description of the sections of the accordion, e.g. icon and title of the section and what component renders the section's content (`.../cv-sections.model.ts`)
+- Contextual description of the sections of the accordion, e.g. icon and title of the section and what component renders the section's content (`.../cv-sections.model.ts`)
 
-  * Summary section (`.../cv-summary.model.ts`)
+  - Summary section (`.../cv-summary.model.ts`)
 
-  * Work experience timeline section (`.../cv-work-experience.model.ts`)
+  - Work experience timeline section (`.../cv-work-experience.model.ts`)
 
-  * Education timeline section (`.../cv-education.model.ts`)
+  - Education timeline section (`.../cv-education.model.ts`)
 
-  * Hobbies section (`.../cv-hobbies.model.ts`)
+  - Hobbies section (`.../cv-hobbies.model.ts`)
 
-  * Portfolio section (`.../cv-portfolio.model.ts`)
+  - Portfolio section (`.../cv-portfolio.model.ts`)
 
 The navigation links in the header are generated from the sections described in the CV model, see `.../cv-sections.model.ts` and `apps/my-cv/src/app/model/app-document.model.ts`.
 
@@ -75,7 +75,11 @@ The provided Jenkinsfile first builds a bundle of the app, then deploys the bund
 
 ## NRWL/NX
 
-The repo is setup with [NRWL](https://github.com/nrwl/nx).
+This project was generated using [Nx](https://nx.dev).
+
+<p align="center"><img src="https://raw.githubusercontent.com/nrwl/nx/master/nx-logo.png" width="450"></p>
+
+🔎 **Nx is a set of Extensible Dev Tools for Monorepos.**
 
 ### Quick Start & Documentation
 

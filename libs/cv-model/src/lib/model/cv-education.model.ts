@@ -21,10 +21,7 @@ export const cvEducationFactory = (): CVEducationMilestone[] => [
       href: 'cv.faculty.university-master.href',
       name: 'cv.faculty.university-master.name',
     },
-    focusTopics: [
-      'cv.badges.1.text',
-      'cv.badges.2.text',
-    ],
+    focusTopics: ['cv.badges.1.text', 'cv.badges.2.text'],
     thesis: {
       title: 'cv.education.master.thesis.title',
       abstract: 'cv.education.master.thesis.description',

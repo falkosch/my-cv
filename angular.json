@@ -3,11 +3,6 @@
   "projects": {
     "my-cv": {
       "projectType": "application",
-      "schematics": {
-        "@nrwl/angular:component": {
-          "style": "scss"
-        }
-      },
       "root": "apps/my-cv",
       "sourceRoot": "apps/my-cv/src",
       "prefix": "my-cv",
@@ -20,7 +15,7 @@
             "main": "apps/my-cv/src/main.ts",
             "polyfills": "apps/my-cv/src/polyfills.ts",
             "tsConfig": "apps/my-cv/tsconfig.app.json",
-            "aot": false,
+            "aot": true,
             "assets": [
               "apps/my-cv/src/favicon.ico",
               "apps/my-cv/src/assets",
@@ -49,7 +44,6 @@
               "sourceMap": false,
               "extractCss": true,
               "namedChunks": false,
-              "aot": true,
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
@@ -58,6 +52,11 @@
                   "type": "initial",
                   "maximumWarning": "2mb",
                   "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
                 }
               ]
             }
@@ -81,8 +80,9 @@
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@angular-eslint/builder:lint",
           "options": {
+            "eslintConfig": "apps/my-cv/eslintrc.config.json",
             "tsConfig": [
               "apps/my-cv/tsconfig.app.json",
               "apps/my-cv/tsconfig.spec.json"
@@ -98,12 +98,17 @@
             "setupFile": "apps/my-cv/src/test-setup.ts"
           }
         }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
+        }
       }
     },
     "my-cv-e2e": {
+      "projectType": "application",
       "root": "apps/my-cv-e2e",
       "sourceRoot": "apps/my-cv-e2e/src",
-      "projectType": "application",
       "architect": {
         "e2e": {
           "builder": "@nrwl/cypress:cypress",
@@ -119,9 +124,9 @@
           }
         },
         "lint": {
-          "builder": "@nrwl/linter:lint",
+          "builder": "@angular-eslint/builder:lint",
           "options": {
-            "linter": "tslint",
+            "eslintConfig": "apps/my-cv-e2e/eslintrc.config.json",
             "tsConfig": ["apps/my-cv-e2e/tsconfig.e2e.json"],
             "exclude": ["**/node_modules/**", "!apps/my-cv-e2e/**"]
           }
@@ -135,8 +140,9 @@
       "prefix": "my-cv",
       "architect": {
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@angular-eslint/builder:lint",
           "options": {
+            "eslintConfig": "libs/anchor-scroll/eslintrc.config.json",
             "tsConfig": [
               "libs/anchor-scroll/tsconfig.lib.json",
               "libs/anchor-scroll/tsconfig.spec.json"
@@ -160,14 +166,15 @@
       }
     },
     "print-hint": {
+      "projectType": "library",
       "root": "libs/print-hint",
       "sourceRoot": "libs/print-hint/src",
-      "projectType": "library",
-      "schematics": {},
+      "prefix": "my-cv",
       "architect": {
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@angular-eslint/builder:lint",
           "options": {
+            "eslintConfig": "libs/print-hint/eslintrc.config.json",
             "tsConfig": [
               "libs/print-hint/tsconfig.lib.json",
               "libs/print-hint/tsconfig.spec.json"
@@ -179,8 +186,14 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/print-hint/jest.config.js",
-            "tsConfig": "libs/print-hint/tsconfig.spec.json"
+            "tsConfig": "libs/print-hint/tsconfig.spec.json",
+            "setupFile": "libs/print-hint/src/test-setup.ts"
           }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "styleext": "scss"
         }
       }
     },
@@ -191,8 +204,9 @@
       "prefix": "my-cv",
       "architect": {
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@angular-eslint/builder:lint",
           "options": {
+            "eslintConfig": "libs/cv-model/eslintrc.config.json",
             "tsConfig": [
               "libs/cv-model/tsconfig.lib.json",
               "libs/cv-model/tsconfig.spec.json"
@@ -222,8 +236,9 @@
       "prefix": "my-cv",
       "architect": {
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@angular-eslint/builder:lint",
           "options": {
+            "eslintConfig": "libs/location/eslintrc.config.json",
             "tsConfig": [
               "libs/location/tsconfig.lib.json",
               "libs/location/tsconfig.spec.json"
@@ -248,7 +263,8 @@
     }
   },
   "cli": {
-    "defaultCollection": "@nrwl/angular"
+    "defaultCollection": "@nrwl/angular",
+    "analytics": false
   },
   "schematics": {
     "@nrwl/angular:application": {
