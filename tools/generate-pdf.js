@@ -4,6 +4,11 @@ const languages = ['de', 'en'];
 const website = (languageCode) => `https://github.com/falkosch/my-cv/?l=${languageCode}`;
 
 const launchOptions = {
+  args: [
+    '--no-sandbox',
+    '--disable-setuid-sandbox',
+    '--font-render-hinting=none',
+  ],
   defaultViewport: {
     width: 1920,
     height: 1080
