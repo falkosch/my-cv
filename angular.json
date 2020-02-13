@@ -80,9 +80,10 @@
           }
         },
         "lint": {
-          "builder": "@angular-eslint/builder:lint",
+          "builder": "@nrwl/linter:lint",
           "options": {
-            "eslintConfig": "apps/my-cv/eslintrc.config.json",
+            "linter": "eslint",
+            "config": "apps/my-cv/eslintrc.config.json",
             "tsConfig": [
               "apps/my-cv/tsconfig.app.json",
               "apps/my-cv/tsconfig.spec.json"
@@ -124,9 +125,10 @@
           }
         },
         "lint": {
-          "builder": "@angular-eslint/builder:lint",
+          "builder": "@nrwl/linter:lint",
           "options": {
-            "eslintConfig": "apps/my-cv-e2e/eslintrc.config.json",
+            "linter": "eslint",
+            "config": "apps/my-cv-e2e/eslintrc.config.json",
             "tsConfig": ["apps/my-cv-e2e/tsconfig.e2e.json"],
             "exclude": ["**/node_modules/**", "!apps/my-cv-e2e/**"]
           }
@@ -140,9 +142,10 @@
       "prefix": "my-cv",
       "architect": {
         "lint": {
-          "builder": "@angular-eslint/builder:lint",
+          "builder": "@nrwl/linter:lint",
           "options": {
-            "eslintConfig": "libs/anchor-scroll/eslintrc.config.json",
+            "linter": "eslint",
+            "config": "libs/anchor-scroll/eslintrc.config.json",
             "tsConfig": [
               "libs/anchor-scroll/tsconfig.lib.json",
               "libs/anchor-scroll/tsconfig.spec.json"
@@ -172,9 +175,10 @@
       "prefix": "my-cv",
       "architect": {
         "lint": {
-          "builder": "@angular-eslint/builder:lint",
+          "builder": "@nrwl/linter:lint",
           "options": {
-            "eslintConfig": "libs/print-hint/eslintrc.config.json",
+            "linter": "eslint",
+            "config": "libs/print-hint/eslintrc.config.json",
             "tsConfig": [
               "libs/print-hint/tsconfig.lib.json",
               "libs/print-hint/tsconfig.spec.json"
@@ -204,9 +208,10 @@
       "prefix": "my-cv",
       "architect": {
         "lint": {
-          "builder": "@angular-eslint/builder:lint",
+          "builder": "@nrwl/linter:lint",
           "options": {
-            "eslintConfig": "libs/cv-model/eslintrc.config.json",
+            "linter": "eslint",
+            "config": "libs/cv-model/eslintrc.config.json",
             "tsConfig": [
               "libs/cv-model/tsconfig.lib.json",
               "libs/cv-model/tsconfig.spec.json"
@@ -236,9 +241,10 @@
       "prefix": "my-cv",
       "architect": {
         "lint": {
-          "builder": "@angular-eslint/builder:lint",
+          "builder": "@nrwl/linter:lint",
           "options": {
-            "eslintConfig": "libs/location/eslintrc.config.json",
+            "linter": "eslint",
+            "config": "libs/location/eslintrc.config.json",
             "tsConfig": [
               "libs/location/tsconfig.lib.json",
               "libs/location/tsconfig.spec.json"
