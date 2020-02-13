@@ -42,7 +42,7 @@ pipeline {
         lock(resource: 'sonarcloud-my-cv') {
           withSonarQubeEnv('sonarqube') {
             withEnv(["sonar.branch.name=${env.BRANCH_NAME}"]) {
-              sh 'npm run analyse'
+              sh 'npm run analyze'
             }
           }
 
