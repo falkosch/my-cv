@@ -37,6 +37,24 @@ pipeline {
       }
     }
 
+    stage('sonar quality gate') {
+      steps {
+        lock(resource: 'sonarcloud-my-cv') {
+          withSonarQubeEnv('sonarqube') {
+            withEnv(["sonar.branch.name=${env.BRANCH_NAME}"]) {
+              sh 'npm run analyse'
+            }
+          }
+
+          sleep time: 20, unit: 'SECONDS'
+
+          timeout(time: 1, unit: 'MINUTES') {
+            waitForQualityGate abortPipeline: true
+          }
+        }
+      }
+    }
+
     stage('deploy') {
       when {
         expression {
