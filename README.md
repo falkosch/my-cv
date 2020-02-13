@@ -1,5 +1,9 @@
 # my-cv
 
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=my-cv&metric=alert_status)](https://sonarcloud.io/dashboard?id=my-cv)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=my-cv&metric=coverage)](https://sonarcloud.io/dashboard?id=my-cv)
+[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=my-cv&metric=ncloc)](https://sonarcloud.io/dashboard?id=my-cv)
+
 `my-cv` is an Angular 8 app that helps you create a CV by providing you with a default layout. You can reuse the layout but will have to add your CV data by yourself. The layout data is separated from the CV data, so that you can focus on the providing the qualitative CV content.
 
 [I hosted the the pre-filled / still empty CV on my private hosting platform](https://my-cv.iterative-prototyping.com), so that you can have a peek of what the CV website would basically look like. If you want to have your own CV website, you will need to find an own hosting platform.
