@@ -1,5 +1,6 @@
 module.exports = {
-  coverageReporters: ['html'],
+  collectCoverage: true,
+  coverageReporters: ['text', 'lcovonly', 'cobertura'],
   globals: {
     'ts-jest': {
       stringifyContentPathRegex: '\\.html$',
@@ -9,17 +10,14 @@ module.exports = {
       ],
     },
   },
-  moduleFileExtensions: ['ts', 'html', 'js', 'json'],
-  passWithNoTests: true,
+  reporters: ['default', 'jest-junit'],
   resolver: '@nrwl/jest/plugins/resolver',
   snapshotSerializers: [
     'jest-preset-angular/AngularNoNgAttributesSnapshotSerializer.js',
     'jest-preset-angular/AngularSnapshotSerializer.js',
     'jest-preset-angular/HTMLCommentSerializer.js',
   ],
-  testMatch: ['**/+(*.)+(spec|test).+(ts|js)?(x)'],
   transform: {
     '^.+\\.(ts|js|html)$': 'ts-jest',
   },
-  transformIgnorePatterns: ['node_modules/(?!@ngrx)'],
 };

@@ -33,7 +33,24 @@ pipeline {
     stage('validation') {
       steps {
         sh 'npm run lint'
-        sh 'npm run test'
+        sh 'npm test'
+      }
+    }
+
+    stage('collect reports') {
+      steps {
+        junit 'reports/**/junit-*.xml'
+
+        cobertura([
+          coberturaReportFile: 'coverage/**/cobertura-coverage.xml',
+          conditionalCoverageTargets: '0, 0, 0',
+          enableNewApi: true,
+          lineCoverageTargets: '0, 0, 0',
+          maxNumberOfBuilds: 0,
+          methodCoverageTargets: '0, 0, 0',
+          onlyStable: false,
+          sourceEncoding: 'ASCII'
+        ])
       }
     }
 
