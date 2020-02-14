@@ -1,11 +1,5 @@
 pipeline {
-  agent {
-    docker {
-      image 'atlassianlabs/docker-node-jdk-chrome-firefox:2020-02-03'
-      label 'docker && linux'
-      args '--memory=2g --memory-swap=2g'
-    }
-  }
+  agent any
 
   options {
     buildDiscarder(logRotator(numToKeepStr: '10'))
@@ -24,111 +18,144 @@ pipeline {
   }
 
   stages {
-    stage('checkout') {
-      steps {
-        sh 'npm ci'
-      }
-    }
-
-    stage('validation') {
-      steps {
-        sh 'npm run lint'
-        sh 'npm test'
-      }
-    }
-
-    stage('collect reports') {
-      steps {
-        junit 'reports/**/junit-*.xml'
-
-        cobertura([
-          coberturaReportFile: 'coverage/**/cobertura-coverage.xml',
-          conditionalCoverageTargets: '0, 0, 0',
-          enableNewApi: true,
-          lineCoverageTargets: '0, 0, 0',
-          maxNumberOfBuilds: 0,
-          methodCoverageTargets: '0, 0, 0',
-          onlyStable: false,
-          sourceEncoding: 'ASCII'
-        ])
-      }
-    }
-
-    stage('sonar quality gate') {
-      steps {
-        lock(resource: 'sonarcloud-my-cv') {
-          withSonarQubeEnv('sonarqube') {
-            withEnv(["sonar.branch.name=${env.BRANCH_NAME}"]) {
-              sh 'npm run analyze'
-            }
-          }
-
-          sleep time: 20, unit: 'SECONDS'
-
-          timeout(time: 1, unit: 'MINUTES') {
-            waitForQualityGate abortPipeline: true
-          }
-        }
-      }
-    }
-
-    stage('deploy') {
-      when {
-        expression {
-          currentBuild.resultIsBetterOrEqualTo('SUCCESS')
+    stage('build and deploy') {
+      agent {
+        docker {
+          image 'atlassianlabs/docker-node-jdk-chrome-firefox:2020-02-03'
+          label 'docker && linux'
+          args '--memory=2g --memory-swap=2g'
         }
       }
 
       stages {
-        stage('Deploy to production') {
-          when {
-            branch 'master'
+        stage('checkout') {
+          steps {
+            sh 'npm ci'
           }
+        }
 
+        stage('validation') {
+          steps {
+            sh 'npm run lint'
+            sh 'npm test'
+          }
+        }
+
+        stage('collect reports') {
+          steps {
+            junit 'reports/**/junit-*.xml'
+
+            cobertura([
+              coberturaReportFile: 'coverage/**/cobertura-coverage.xml',
+              conditionalCoverageTargets: '0, 0, 0',
+              enableNewApi: true,
+              lineCoverageTargets: '0, 0, 0',
+              maxNumberOfBuilds: 0,
+              methodCoverageTargets: '0, 0, 0',
+              onlyStable: false,
+              sourceEncoding: 'ASCII'
+            ])
+          }
+        }
+
+        stage('sonar quality gate') {
+          steps {
+            lock(resource: 'sonarcloud-my-cv') {
+              withSonarQubeEnv('sonarqube') {
+                withEnv(["sonar.branch.name=${env.BRANCH_NAME}"]) {
+                  sh 'npm run analyze'
+                }
+              }
+
+              sleep time: 20, unit: 'SECONDS'
+
+              timeout(time: 1, unit: 'MINUTES') {
+                waitForQualityGate abortPipeline: true
+              }
+            }
+          }
+        }
+
+        stage('build') {
           steps {
             milestone(3)
             sh 'npm run build -- --prod'
+          }
+        }
 
+        stage('deploy to production') {
+          when {
+            allOf {
+              branch 'master'
+              expression {
+                currentBuild.resultIsBetterOrEqualTo('SUCCESS')
+              }
+            }
+          }
+
+          steps {
             lock(resource: 'deploy-my-cv') {
               milestone(11)
 
-              sshPublisher(
-                publishers: [
-                  sshPublisherDesc(configName: 'Deploy to webserver', transfers: [
-                    sshTransfer(
-                      cleanRemote: true,
-                      flatten: false,
-                      makeEmptyDirs: true,
-                      remoteDirectory: 'my-cv',
-                      sourceFiles: 'dist/apps/my-cv/**/*',
-                      removePrefix: 'dist/apps/my-cv',
-                      excludes: '*.map'
-                    )
-                  ])
-                ]
-              )
-
-              sh 'cd tools && node generate-pdf.js'
-
-              sshPublisher(
-                publishers: [
-                  sshPublisherDesc(configName: 'Deploy to webserver', transfers: [
-                    sshTransfer(
-                      cleanRemote: false,
-                      flatten: false,
-                      makeEmptyDirs: true,
-                      remoteDirectory: 'my-cv/assets',
-                      sourceFiles: 'dist/apps/my-cv/assets/*.pdf',
-                      removePrefix: 'dist/apps/my-cv/assets'
-                    )
-                  ])
-                ]
-              ) // sshPublisher
-            } // deploy-my-cv-personal
+              sshPublisher(publishers: [
+                sshPublisherDesc(configName: 'Deploy to webserver', transfers: [
+                  sshTransfer(
+                    cleanRemote: true,
+                    flatten: false,
+                    makeEmptyDirs: true,
+                    remoteDirectory: 'my-cv',
+                    sourceFiles: 'dist/apps/my-cv/**/*',
+                    removePrefix: 'dist/apps/my-cv',
+                    excludes: '*.map'
+                  )
+                ])
+              ])
+            }
           }
-        } // Deploy to production
+        }
       }
-    } // deploy
+    }
+
+    stage('render and deploy PDFs') {
+      // Rendering in a docker container results in bad PDF layouts. It is
+      // better to render on a native host.
+      agent {
+        label '!docker || master'
+      }
+
+      when {
+        allOf {
+          branch 'master'
+          expression {
+            currentBuild.resultIsBetterOrEqualTo('SUCCESS')
+          }
+        }
+      }
+
+      steps {
+        lock(resource: 'deploy-my-cv-pdfs') {
+          milestone(23)
+
+          dir('scripts') {
+            sh 'npm ci'
+            sh 'node generate-pdf.js'
+          }
+
+          sshPublisher(publishers: [
+            sshPublisherDesc(configName: 'Deploy to webserver', transfers: [
+              sshTransfer(
+                cleanRemote: false,
+                flatten: false,
+                makeEmptyDirs: true,
+                remoteDirectory: 'my-cv/assets',
+                sourceFiles: 'dist/apps/my-cv/assets/*.pdf',
+                removePrefix: 'dist/apps/my-cv/assets'
+              )
+            ])
+          ]) // sshPublisher
+        } // deploy-my-cv
+      }
+    } // render and deploy PDFs
   }
 
   post {
