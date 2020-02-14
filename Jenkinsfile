@@ -27,6 +27,14 @@ pipeline {
         }
       }
 
+      environment {
+        // Will be evaluated once the stage runs on the requested
+        // "docker && linux" agent, otherwise HOME may have the already
+        // evaluated value from the "pipeline" level, which could be a Windows
+        // path if the master runs on that OS.
+        HOME = "${env.WORKSPACE}"
+      }
+
       stages {
         stage('checkout') {
           steps {
@@ -121,6 +129,14 @@ pipeline {
       // better to render on a native host.
       agent {
         label '!docker || master'
+      }
+
+      environment {
+        // Will be evaluated once the stage runs on the requested
+        // "docker && linux" agent, otherwise HOME may have the already
+        // evaluated value from the "pipeline" level, which could be a Windows
+        // path if the master runs on that OS.
+        HOME = "${env.WORKSPACE}"
       }
 
       when {
