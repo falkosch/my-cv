@@ -164,8 +164,8 @@ pipeline {
                 flatten: false,
                 makeEmptyDirs: true,
                 remoteDirectory: 'my-cv/assets',
-                sourceFiles: 'dist/apps/my-cv/assets/*.pdf',
-                removePrefix: 'dist/apps/my-cv/assets'
+                sourceFiles: 'dist/*.pdf',
+                removePrefix: 'dist'
               )
             ])
           ]) // sshPublisher

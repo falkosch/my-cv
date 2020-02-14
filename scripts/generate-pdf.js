@@ -1,4 +1,8 @@
+const util = require('util');
+const fs = require('fs');
 const puppeteer = require('puppeteer');
+
+const fsmkdir = util.promisify(fs.mkdir);
 
 const languages = ['de', 'en'];
 
@@ -24,7 +28,7 @@ const gotoOptions = {
 
 const pdfOptions = languageCode => ({
   displayHeaderFooter: true,
-  path: `../dist/apps/my-cv/assets/CurriculumVitae-${languageCode}.pdf`,
+  path: `../dist/CurriculumVitae-${languageCode}.pdf`,
   format: 'A4',
 });
 
@@ -47,21 +51,25 @@ const printCSS = {
   },
 };
 
-async function browse(languageCode) {
+async function render(browser, languageCode) {
+  const page = await browser.newPage();
+  await page.goto(website(languageCode), gotoOptions);
+  await page.addStyleTag(printCSS[languageCode]);
+  await page.pdf(pdfOptions(languageCode));
+}
+
+fsmkdir('../dist', { recursive: true }).then(async () => {
+  const browser = await puppeteer.launch(launchOptions);
   try {
-    const browser = await puppeteer.launch(launchOptions);
     try {
-      const page = await browser.newPage();
-      await page.goto(website(languageCode), gotoOptions);
-      await page.addStyleTag(printCSS[languageCode]);
-      await page.pdf(pdfOptions(languageCode));
+      await Promise.all(
+        languages.map(languageCode => render(browser, languageCode)),
+      );
     } finally {
-      await browser.close();
+      browser.close();
     }
   } catch (error) {
     console.error('Something went horribly wrong: ', error);
     process.exit(-1);
   }
-}
-
-Promise.all(languages.map(languageCode => browse(languageCode)));
+});
