@@ -54,8 +54,8 @@ pipeline {
             junit 'reports/**/junit-*.xml'
 
             cobertura([
-			  autoUpdateHealth: false,
-			  autoUpdateStability: false,
+			        autoUpdateHealth: false,
+			        autoUpdateStability: false,
               coberturaReportFile: 'coverage/**/cobertura-coverage.xml',
               conditionalCoverageTargets: '0, 0, 0',
               enableNewApi: true,
