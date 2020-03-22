@@ -21,7 +21,7 @@ pipeline {
     stage('build and deploy') {
       agent {
         docker {
-          image 'atlassianlabs/docker-node-jdk-chrome-firefox:2020-02-03'
+          image 'schwabe/nodejs-toolchain:latest'
           label 'docker && linux'
           args '--memory=2g --memory-swap=2g'
         }
